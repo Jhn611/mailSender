@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
           secure: false, // true для 465, false для 587 + STARTTLS
           auth: {
             user: 'apikey',           // Всегда именно "apikey" для Brevo
-            pass: process.env.BREVO_API_KEY  // Твой API-ключ из Brevo
+            pass: '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'  // Твой API-ключ из Brevo
           }
         });
 
