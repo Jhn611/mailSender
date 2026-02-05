@@ -1,6 +1,5 @@
 // api/form.js
 const nodemailer = require('nodemailer');
-const sgMail = require('@sendgrid/mail');
 
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*'); 
