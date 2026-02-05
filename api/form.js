@@ -28,21 +28,21 @@ module.exports = async (req, res) => {
         email = email ? email : "@NoMail"
         text = text ? text : "NoText"
         
-        // Настройка Nodemailer для Brevo (SMTP)
+       // Настройка Nodemailer для Resend
         const transporter = nodemailer.createTransport({
-          host: 'smtp-relay.brevo.com',
+          host: 'smtp.resend.com',
           port: 587,
-          secure: false, // true для 465, false для 587 + STARTTLS
+          secure: false, // STARTTLS
           auth: {
-            user: 'a19e3a001@smtp-brevo.com',           // Всегда именно "apikey" для Brevo
-            pass: process.env.BREVO_API_KEY  // Твой API-ключ из Brevo
+            user: 'resend',                 // Всегда именно 'resend'
+            pass: process.env.RESEND_API_KEY // Твой новый ключ из Resend
           }
         });
 
         // Сообщение
         const mailOptions = {
-          from: '"Form Submission" <tutktoto05@gmail.com>', // Обязательно верифицированный email в Brevo
-          to: 'ivantimofeev1912@gmail.com',           // Куда приходят письма (твоя почта)
+          from: 'tutktoto05@gmail.com', // ← можно использовать по умолчанию или свой верифицированный email
+          to: 'ivantimofeev1912@gmail.com',
           subject: 'Новая заявка с формы',
           text: `Имя: ${name}\nEmail: ${email}\nСообщение:\n${text}`,
           html: `
