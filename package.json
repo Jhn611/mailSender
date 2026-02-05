@@ -1,0 +1,17 @@
+{
+"name": "form-server",
+"version": "1.0.0",
+"main": "api/form.js",
+"scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel deploy"
+},
+"dependencies": {
+    "@sendgrid/mail": "^8.1.0"
+},
+"engines": {
+    "node": ">=18.0.0"
+},
+"author": "Jhn",
+"license": "MIT"
+}
