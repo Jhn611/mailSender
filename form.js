@@ -3,6 +3,15 @@ const nodemailer = require('nodemailer');
 const sgMail = require('@sendgrid/mail');
 
 module.exports = async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://jhn611.github.io'); 
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   if (req.method === 'POST') {
     let body = '';
     
