@@ -41,7 +41,7 @@ module.exports = async (req, res) => {
 
         // Сообщение
         const mailOptions = {
-          from: 'tutktoto05@gmail.com', // ← можно использовать по умолчанию или свой верифицированный email
+          from: 'onboarding@resend.dev', // ← можно использовать по умолчанию или свой верифицированный email
           to: 'ivantimofeev1912@gmail.com',
           subject: 'Новая заявка с формы',
           text: `Имя: ${name}\nEmail: ${email}\nСообщение:\n${text}`,
