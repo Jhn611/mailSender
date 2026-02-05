@@ -20,21 +20,35 @@ module.exports = async (req, res) => {
         email = email ? email : "@NoMail"
         text = text ? text : "NoText"
         
-        // Настройка SendGrid
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY);  // API key из Vercel env
-        
-        const msg = {
-          to: 'ivantimofeev1912@gmail.com',  // Твоя почта для получения
-          from: 'sender@example.com',    // Подтвержденный email в SendGrid
-          subject: 'New Form Submission',
-          text: `Name: ${name}\nEmail: ${email}\nMessage: ${text}`,
-          html: `<strong>Name:</strong> ${name}<br><strong>Email:</strong> ${email}<br><strong>Message:</strong> ${text}`,
+        // Настройка Nodemailer для Brevo (SMTP)
+        const transporter = nodemailer.createTransport({
+          host: 'smtp-relay.brevo.com',
+          port: 587,
+          secure: false, // true для 465, false для 587 + STARTTLS
+          auth: {
+            user: 'apikey',           // Всегда именно "apikey" для Brevo
+            pass: process.env.BREVO_API_KEY  // Твой API-ключ из Brevo
+          }
+        });
+
+        // Сообщение
+        const mailOptions = {
+          from: '"Form Submission" <tutktoto05@gmail.com>', // Обязательно верифицированный email в Brevo
+          to: 'ivantimofeev1912@gmail.com',           // Куда приходят письма (твоя почта)
+          subject: 'Новая заявка с формы',
+          text: `Имя: ${name}\nEmail: ${email}\nСообщение:\n${text}`,
+          html: `
+            <h3>Новая заявка</h3>
+            <p><strong>Имя:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Сообщение:</strong><br>${text.replace(/\n/g, '<br>')}</p>
+          `
         };
-        
-        await sgMail.send(msg);
-        
-        console.log(`Form submitted: ${name}, ${email}, ${text}`);
-        res.status(200).json({ message: 'Form submitted and email sent!' });
+
+        await transporter.sendMail(mailOptions);
+
+        console.log(`Форма отправлена: ${name}, ${email}`);
+        res.status(200).json({ message: 'Форма успешно отправлена!' });
       } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Error sending email' });
