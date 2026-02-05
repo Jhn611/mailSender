@@ -34,7 +34,7 @@ module.exports = async (req, res) => {
           port: 587,
           secure: false, // true для 465, false для 587 + STARTTLS
           auth: {
-            user: 'apikey',           // Всегда именно "apikey" для Brevo
+            user: 'a19e3a001@smtp-brevo.com',           // Всегда именно "apikey" для Brevo
             pass: process.env.BREVO_API_KEY  // Твой API-ключ из Brevo
           }
         });
